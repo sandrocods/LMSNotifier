@@ -87,8 +87,7 @@ Menjalankan file .exe
 ![2](https://i.ibb.co/6cQPRZd/vlcsnap-2022-07-01-20h16m31s323.png)
 
 
-#### Otomatis buka 
-![App Screenshot](https://i.ibb.co/nBfJc03/image.png)
+
 
 
 #### Buka Link Tugas dari Notifikasi
