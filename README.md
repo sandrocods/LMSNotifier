@@ -12,7 +12,7 @@ Program Sederhana yang dibuat dengan Python3 dan Scraping ke web LMS ITTP untuk 
  - [Python3](https://www.python.org/)
  - [Requests](https://pypi.org/project/requests/)
  - [BeautifulSoup](https://pypi.org/project/beautifulsoup4/)
- - [Win10Toast](https://pypi.org/project/win10toast/)
+ - [Win10toast-click](https://pypi.org/project/win10toast-click/)
  - [InquirerPy](https://pypi.org/project/inquirerpy/)
  - [Configparser](https://docs.python.org/3/library/configparser.html)
  - [Schedule](https://pypi.org/project/schedule/)
@@ -23,8 +23,9 @@ Program Sederhana yang dibuat dengan Python3 dan Scraping ke web LMS ITTP untuk 
 
 | Fitur             |                                                                 |
 | ----------------- | ------------------------------------------------------------------ |
+| Buka Link Tugas dari Notifikasi | ✅ |
 | Pengaturan Waktu Notifikasi | ✅ |
-| Pengaturan Akun disimpan di file config .ini | ✅ |
+| Konfigurasi Akun disimpan di file config .ini | ✅ |
 | Login Account Menggunakan Session Cookie | ✅ |
 | Headless | ✅ |
 
@@ -67,7 +68,7 @@ Menjalankan file .exe
 
 
 #### Notifikasi Autentikasi berhasil
-![App Screenshot](https://i.ibb.co/bsJJYN2/Screenshot-3.png)
+![App Screenshot](https://i.ibb.co/nBfJc03/image.png)
 
 
 #### Notifikasi Autentikasi Gagal
@@ -77,8 +78,21 @@ Menjalankan file .exe
 ![App Screenshot](https://i.ibb.co/dKBxyxJ/Screenshot-4.png)
 
 
-#### Notifikasi tidak ada tugas
-![App Screenshot](https://i.ibb.co/S6nLhkK/Screenshot-5.png)
+#### Notifikasi ada tugas
+
+![App Screenshot](https://i.ibb.co/cX8NCMR/vlcsnap-2022-07-01-20h11m48s599.png)
+
+![1](https://i.ibb.co/KLLncZ1/vlcsnap-2022-07-01-20h15m13s323.png)
+
+![2](https://i.ibb.co/6cQPRZd/vlcsnap-2022-07-01-20h16m31s323.png)
+
+
+#### Otomatis buka 
+![App Screenshot](https://i.ibb.co/nBfJc03/image.png)
+
+
+#### Buka Link Tugas dari Notifikasi
+![App Screenshot](https://s8.gifyu.com/images/ezgif.com-video-to-gif48ef68db87bf8c93.gif)
 
 
 
