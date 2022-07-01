@@ -1,10 +1,11 @@
-import sys
-from win10toast import ToastNotifier
+from win10toast_click import ToastNotifier
 from InquirerPy import inquirer
 from src.LmsManager import *
 import configparser
+import webbrowser
 import schedule
 import time
+import sys
 import os
 
 config = configparser.ConfigParser()
@@ -41,7 +42,7 @@ else:  # if config.ini not exist
 
         ProfileDetails = lmsm.get_profile()
 
-        toaster.show_toast("Autentikasi Berhasil",
+        toaster.show_toast("Autentikasi Berhasil ✅",
                            "Selamat Datang {full_name}".format(full_name=ProfileDetails['full_name']),
                            icon_path="./icon.ico",
                            duration=5,
@@ -49,7 +50,7 @@ else:  # if config.ini not exist
                            )
 
     except LoginError as e:
-        toaster.show_toast("Oops ada kesalahan",
+        toaster.show_toast("Oops ada kesalahan ❗️",
                            "Kata sandi atau username salah !\nSilahkan muat ulang program ini",
                            icon_path="./icon.ico",
                            duration=5,
@@ -71,22 +72,63 @@ def ToastMessage():
             lmsm = LmsManager(username=username, password=password)
             lmsm.Login()
 
-            string_data = ""
+            itteration = 1
+
+            if len(lmsm.Get_activity(end_time=30)) < 1:
+                toaster.show_toast("Tidak ada tugas 🙌",
+                                   "Semua tugas telah diselesaikan ✅",
+                                   icon_path="./icon.ico",
+                                   duration=5,
+                                   threaded=True)
+                return
+
             for activity in lmsm.Get_activity(end_time=30):
-                string_data += "Lesson Name : {nama_pelajaran}\nTask Name : {nama_tugas}\nDeadline : {deadline}\n\n".format(
-                    nama_pelajaran=activity['full_name'], nama_tugas=activity['name'],
-                    deadline=activity['deadline'])
 
-            if len(string_data) <= 0:
-                string_data = "Tidak ada tugas 😉"
+                def open_url(id=activity['id']):
+                    try:
+                        webbrowser.open_new("https://lms.ittelkom-pwt.ac.id/mod/assign/view.php?id={id}".format(id=id))
+                    except:
+                        pass
 
-            toaster.show_toast("Tugas LMS",
-                               string_data,
-                               icon_path="./icon.ico",
-                               duration=5,
-                               threaded=True)
+                toaster.show_toast("Tugas ke " + str(itteration),
+                                   "📚 Pelajaran : {nama_pelajaran}".format(nama_pelajaran=activity['full_name']),
+                                   icon_path="./icon.ico",
+                                   duration=7,
+                                   )
+
+                toaster.show_toast("Tugas ke " + str(itteration),
+                                   "📝 Task Name : {nama_tugas}".format(nama_tugas=activity['name']),
+                                   icon_path="./icon.ico",
+                                   duration=5,
+                                   )
+
+                toaster.show_toast("Tugas ke " + str(itteration),
+                                   "🗓 Deadline : {deadline}".format(deadline=activity['deadline']),
+                                   icon_path="./icon.ico",
+                                   duration=5,
+                                   )
+
+                toaster.show_toast("Tugas ke " + str(itteration),
+                    "🔗 Klik untuk membuka tugas di LMS",
+                    icon_path="./icon.ico",
+                    duration=5,
+                    threaded=True,
+                    callback_on_click=open_url
+                )
+
+                itteration += 1
+            else:
+
+                toaster.show_toast("Informasi 🙌",
+                                   "Jangan lupa mengerjakan tugas yaa ✅",
+                                   icon_path="./icon.ico",
+                                   duration=5,
+                                   threaded=True)
+
+
+
         except LoginError:
-            toaster.show_toast("Oops ada kesalahan",
+            toaster.show_toast("Oops ada kesalahan ❗️",
                                "Kata sandi atau username salah !\nSilahkan muat ulang program ini",
                                icon_path="./icon.ico",
                                duration=5,
@@ -96,7 +138,7 @@ def ToastMessage():
             sys.exit()
 
         except GetActivityError:
-            toaster.show_toast("Oops ada kesalahan",
+            toaster.show_toast("Oops ada kesalahan ❗️",
                                "Coba lagi nanti !",
                                icon_path="./icon.ico",
                                duration=5,
@@ -104,7 +146,7 @@ def ToastMessage():
                                )
 
         except CookieExpire:
-            toaster.show_toast("Oops ada kesalahan",
+            toaster.show_toast("Oops ada kesalahan ❗️",
                                "Kata sandi atau username salah !\nSilahkan muat ulang program ini",
                                icon_path="./icon.ico",
                                duration=5,
@@ -114,7 +156,7 @@ def ToastMessage():
             os.remove("./Cookie/account_info.ini")
             sys.exit()
     except Exception:
-        toaster.show_toast("Oops ada kesalahan",
+        toaster.show_toast("Oops ada kesalahan ❗️",
                            "Coba lagi nanti !",
                            icon_path="./icon.ico",
                            duration=5,
@@ -170,7 +212,7 @@ try:
 
     while True:
         schedule.run_pending()
-        time.sleep(1)
+        time.sleep(0.1)
 
 except LoginError as e:
     toaster.show_toast("Oops ada kesalahan",
@@ -183,7 +225,7 @@ except LoginError as e:
     sys.exit()
 
 except GetActivityError as e:
-    toaster.show_toast("Oops ada kesalahan",
+    toaster.show_toast("Oops ada kesalahan ❗️",
                        "Coba lagi nanti !",
                        icon_path="./icon.ico",
                        duration=5,
@@ -192,7 +234,7 @@ except GetActivityError as e:
 
 
 except CookieExpire as e:
-    toaster.show_toast("Oops ada kesalahan",
+    toaster.show_toast("Oops ada kesalahan ❗️",
                        "Kata sandi atau username salah !\nSilahkan muat ulang program ini",
                        icon_path="./icon.ico",
                        duration=5,
