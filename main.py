@@ -46,7 +46,7 @@ else:  # if config.ini not exist
                            "Selamat Datang {full_name}".format(full_name=ProfileDetails['full_name']),
                            icon_path="./icon.ico",
                            duration=5,
-                           threaded=True
+                          
                            )
 
     except LoginError as e:
@@ -54,7 +54,7 @@ else:  # if config.ini not exist
                            "Kata sandi atau username salah !\nSilahkan muat ulang program ini",
                            icon_path="./icon.ico",
                            duration=5,
-                           threaded=True
+                          
                            )
         sys.exit()
 
@@ -72,16 +72,14 @@ def ToastMessage():
             lmsm = LmsManager(username=username, password=password)
             lmsm.Login()
 
-            itteration = 1
-
             if len(lmsm.Get_activity(end_time=30)) < 1:
                 toaster.show_toast("Tidak ada tugas 🙌",
                                    "Semua tugas telah diselesaikan ✅",
                                    icon_path="./icon.ico",
                                    duration=5,
-                                   threaded=True)
-                return
-
+                                  
+                                   )
+            itteration = 1
             for activity in lmsm.Get_activity(end_time=30):
 
                 def open_url(id=activity['id']):
@@ -93,28 +91,31 @@ def ToastMessage():
                 toaster.show_toast("Tugas ke " + str(itteration),
                                    "📚 Pelajaran : {nama_pelajaran}".format(nama_pelajaran=activity['full_name']),
                                    icon_path="./icon.ico",
-                                   duration=7,
+                                   duration=8,
+                            
                                    )
 
                 toaster.show_toast("Tugas ke " + str(itteration),
                                    "📝 Task Name : {nama_tugas}".format(nama_tugas=activity['name']),
                                    icon_path="./icon.ico",
-                                   duration=5,
+                                   duration=6,
+
                                    )
 
                 toaster.show_toast("Tugas ke " + str(itteration),
                                    "🗓 Deadline : {deadline}".format(deadline=activity['deadline']),
                                    icon_path="./icon.ico",
                                    duration=5,
+
                                    )
 
                 toaster.show_toast("Tugas ke " + str(itteration),
-                    "🔗 Klik untuk membuka tugas di LMS",
-                    icon_path="./icon.ico",
-                    duration=5,
-                    threaded=True,
-                    callback_on_click=open_url
-                )
+                                   "🔗 Klik untuk membuka tugas di LMS",
+                                   icon_path="./icon.ico",
+                                   duration=4,
+                                   callback_on_click=open_url,
+
+                                   )
 
                 itteration += 1
             else:
@@ -123,7 +124,8 @@ def ToastMessage():
                                    "Jangan lupa mengerjakan tugas yaa ✅",
                                    icon_path="./icon.ico",
                                    duration=5,
-                                   threaded=True)
+
+                                   )
 
 
 
@@ -132,7 +134,7 @@ def ToastMessage():
                                "Kata sandi atau username salah !\nSilahkan muat ulang program ini",
                                icon_path="./icon.ico",
                                duration=5,
-                               threaded=True
+                              
                                )
             os.remove("./Cookie/account_info.ini")
             sys.exit()
@@ -142,7 +144,7 @@ def ToastMessage():
                                "Coba lagi nanti !",
                                icon_path="./icon.ico",
                                duration=5,
-                               threaded=True
+                              
                                )
 
         except CookieExpire:
@@ -150,7 +152,7 @@ def ToastMessage():
                                "Kata sandi atau username salah !\nSilahkan muat ulang program ini",
                                icon_path="./icon.ico",
                                duration=5,
-                               threaded=True
+                              
                                )
 
             os.remove("./Cookie/account_info.ini")
@@ -160,7 +162,7 @@ def ToastMessage():
                            "Coba lagi nanti !",
                            icon_path="./icon.ico",
                            duration=5,
-                           threaded=True
+                          
                            )
         sys.exit()
 
@@ -191,13 +193,14 @@ try:
                        "Bot ini akan mengirimkan notifikasi setiap {time} menit".format(time=notif_time),
                        icon_path="./icon.ico",
                        duration=5,
+
                        )
 
     toaster.show_toast("Haloo 🙌",
                        "Selamat Datang {full_name}".format(full_name=ProfileDetails['full_name']),
                        icon_path="./icon.ico",
-                       duration=5,
-                       threaded=True
+                       duration=4,
+
                        )
 
     while toaster.notification_active():
@@ -212,14 +215,14 @@ try:
 
     while True:
         schedule.run_pending()
-        time.sleep(0.1)
+        time.sleep(1)
 
 except LoginError as e:
     toaster.show_toast("Oops ada kesalahan",
                        "Kata sandi atau username salah !\nSilahkan muat ulang program ini",
                        icon_path="./icon.ico",
                        duration=5,
-                       threaded=True
+                      
                        )
     os.remove("./Cookie/account_info.ini")
     sys.exit()
@@ -229,7 +232,7 @@ except GetActivityError as e:
                        "Coba lagi nanti !",
                        icon_path="./icon.ico",
                        duration=5,
-                       threaded=True
+                      
                        )
 
 
@@ -238,7 +241,7 @@ except CookieExpire as e:
                        "Kata sandi atau username salah !\nSilahkan muat ulang program ini",
                        icon_path="./icon.ico",
                        duration=5,
-                       threaded=True
+                      
                        )
 
     os.remove("./Cookie/account_info.ini")
@@ -248,6 +251,6 @@ except KeyboardInterrupt:
                        "Program dihentikan",
                        icon_path="./icon.ico",
                        duration=2,
-                       threaded=True
+                      
                        )
     sys.exit()
